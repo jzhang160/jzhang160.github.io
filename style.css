@@ -26,11 +26,11 @@ p {
     margin: 0px;
 }
 
-.popup{
+#popup{
     font-size: 35px;
     position: sticky;
     position: relative;
-    left: 50%;
+    left: 10%;
     color: transparent;
 }
 

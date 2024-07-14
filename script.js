@@ -11,7 +11,8 @@ var guessCount = 1;
 var previousTries = [];
 
 var word = '';
-
+var win = false;
+var guessList = [];
 
 function addN(i)
 {
@@ -85,31 +86,64 @@ function handleGuess()
 {
 	var playerInput = playerGuess.value;
 	playerGuess.value = '';
-	checkGuess(playerInput.toLowerCase());
+	if (!win)
+	{
+		checkGuess(playerInput.toLowerCase());
+	}
 }
 
 function checkGuess(playerInput)
 {
-	if (playerInput.length == 5)
+	var correct = 0;
+	if (playerInput.length == 5) // Check length of word
 	{
-		printGuess(playerInput);
-		for (var i = 0; i < 5; i++)
+		if (!guessList.includes(playerInput))
 		{
-			if (word.includes(playerInput[i]))
+			if (JSON.parse(wordList).includes(playerInput)) // Check valid word
 			{
-				if (word[i] == playerInput[i])
+				printGuess(playerInput); // Display word
+				for (var i = 0; i < 5; i++)
 				{
-					var val = addN(guessCount) + i + 1;
-					document.getElementById("line" + val).style.color = "green";
+					if (word.includes(playerInput[i])) // Check letter in word
+					{
+						if (word[i] == playerInput[i]) // Check green letter
+						{
+							correct += 1;
+							var val = addN(guessCount) + i + 1;
+							document.getElementById("line" + val).style.color = "green";
+						}
+						else
+						{
+							var val = addN(guessCount) + i + 1;
+							document.getElementById("line" + val).style.color = "yellow";
+						}
+					}
 				}
-				else
+				if (correct == 5)
 				{
-					var val = addN(guessCount) + i + 1;
-					document.getElementById("line" + val).style.color = "yellow";
+					printPopup(`YOU WIN!`);
+					win = true;
 				}
+				if (guessCount == 6)
+				{
+					if (correct != 5)
+					{
+						printPopup(`The word was ` + word);
+					}
+				}
+				guessCount += 1;
+				guessList.push(playerInput);
+				console.log(guessList);
+			}
+			else
+			{
+				printPopup(`Invalid Word`);
 			}
 		}
-		guessCount += 1;
+		else
+		{
+			printPopup(`Already Guessed!`)
+		}
 	}
 }
 
@@ -120,6 +154,13 @@ function printGuess(playerInput)
 		var line = i + addN(guessCount)+1;
 		writeCharacter(line , playerInput[i])
 	}
+}
+
+function printPopup(string)
+{
+	let pop = document.getElementById('popup');
+	pop.style.color = 'black';
+	pop.innerHTML = string;
 }
 
 function run()
