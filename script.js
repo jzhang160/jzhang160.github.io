@@ -112,8 +112,8 @@ function checkGuess(playerInput)
 				}
 			}
 		}
+		guessCount += 1;
 	}
-	guessCount += 1;
 }
 
 function printGuess(playerInput)
