@@ -90,16 +90,13 @@ function handleGuess()
 
 function checkGuess(playerInput)
 {
-	console.log(playerInput.length);
 	if (playerInput.length == 5)
 	{
 		printGuess(playerInput);
 		for (var i = 0; i < 5; i++)
 		{
-			console.log(playerInput[i]);
 			if (word.includes(playerInput[i]))
 			{
-				console.log(playerInput[i] + " is in the word");
 				if (word[i] == playerInput[i])
 				{
 					var val = addN(guessCount) + i + 1;
