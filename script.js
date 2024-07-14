@@ -118,7 +118,6 @@ function printGuess(playerInput)
 	for (var i = 0; i < 5; i++)
 	{
 		var line = i + addN(guessCount)+1;
-		console.log("line: " + line + " playerInput: " + playerInput[i]);
 		writeCharacter(line , playerInput[i])
 	}
 }

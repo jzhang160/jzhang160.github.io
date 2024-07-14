@@ -2,15 +2,16 @@
 
 body {
     font-family: Arial, sans-serif;
-    font-size: 85px;
+    font-size: 65px;
     background-color: #f0f0f0;
     margin: 0;
     padding: 0px;
-    width: 550px;
+    width: 400px;
     position: absolute;
-    top: 50%;
+    /* top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%); */
+    margin-left: 25px;
 }
 
 h1 {
@@ -25,17 +26,25 @@ p {
     margin: 0px;
 }
 
+.popup{
+    font-size: 35px;
+    position: sticky;
+    position: relative;
+    left: 50%;
+    color: transparent;
+}
+
 .line {
     color: light #666;
     line-height: 1.6;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 75%;
-    max-width: 600px;
-    height: 100px;
+    width: 100%;
+    height: 100%;
     border: solid black 2px;
     margin: 2px;
+    border-radius: 4px;
 }
 
 .guess{
@@ -45,6 +54,7 @@ p {
     justify-content: space-evenly;
     color: gray;
     padding: 3px;
+    height: 70px;
     /* border: solid red 2px; */
 }
 
