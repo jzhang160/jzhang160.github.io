@@ -139,7 +139,6 @@ function checkGuess(playerInput)
 				}
 				guessCount += 1;
 				guessList.push(playerInput);
-				console.log(guessList);
 				document.getElementById('popup').style.color = 'transparent';
 				playerGuess.value = '';
 			}
