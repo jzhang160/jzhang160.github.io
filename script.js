@@ -5,7 +5,7 @@ const wordList = JSON.stringify(["which", "there", "their", "about", "would", "t
 var current_box = 1;
 const resultDisplay = document.getElementById("display");
 
-var playerGuess = document.getElementById("playerGuess");
+const playerGuess = document.getElementById("playerGuess");
 
 var guessCount = 1;
 var previousTries = [];
@@ -82,10 +82,16 @@ function play()
 	console.log(word);
 }
 
+playerGuess.addEventListener('keydown', function(event) {
+	if (event.key === 'Enter') {
+		handleGuess();
+	}
+});
+
 function handleGuess()
 {
 	var playerInput = playerGuess.value;
-	playerGuess.value = '';
+	// playerGuess.value = '';
 	if (!win)
 	{
 		checkGuess(playerInput.toLowerCase());
@@ -135,6 +141,7 @@ function checkGuess(playerInput)
 				guessList.push(playerInput);
 				console.log(guessList);
 				document.getElementById('popup').style.color = 'transparent';
+				playerGuess.value = '';
 			}
 			else
 			{
