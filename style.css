@@ -78,3 +78,41 @@ p {
     width: 75px;
     margin-top: 2px;
 }
+
+#keyboard{
+    display: flex;
+    flex-direction: column;
+    margin-top: 35px;
+    align-items: center;
+}
+
+#row1{
+    display: flex;
+    flex-direction: row;
+    /* border: 2px red solid; */
+}
+
+#row2{
+    display: flex;
+    flex-direction: row;
+    /* border: 2px green solid; */
+}
+
+#row3{
+    display: flex;
+    flex-direction: row;
+    /* border: 2px blue solid; */
+}
+
+.key{
+    height: 40px;
+    width: 35px;
+    font-size: 20px;
+    margin: 1px;
+}
+
+.sideKey{
+    margin: 1px;
+    width: 60px;
+    height: 40px;
+}

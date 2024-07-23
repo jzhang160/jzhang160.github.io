@@ -5,16 +5,25 @@ const wordList = JSON.stringify(["which", "there", "their", "about", "would", "t
 var current_box = 1;
 const resultDisplay = document.getElementById("display");
 
-const playerGuess = document.getElementById("playerGuess");
-
 var guessCount = 1;
 var previousTries = [];
 
 var word = '';
 var win = false;
 var guessList = [];
+var currentLine = 0;
+var playerGuess = '';
+var checked = 0;
 
 const keyboardDiv = document.getElementById("keyboard");
+
+// const playerGuess = document.getElementById("playerGuess");
+
+// playerGuess.addEventListener('keydown', function(event) {
+// 	if (event.key === 'Enter') {
+// 		handleGuess();
+// 	}
+// });
 
 function addN(i)
 {
@@ -54,12 +63,92 @@ function createDisplay()
 
 function createKeyboard()
 {
-	var rowOne = document.createElement('div');
-	keyboardDiv.appendChild(rowOne);
-	var rowTwo = document.createElement('div');
-	keyboardDiv.appendChild(rowTwo);
-	var rowThree = document.createElement('div');
-	keyboardDiv.appendChild(rowThree);
+	var row1 = document.createElement('div');
+	var row2 = document.createElement('div');
+	var row3 = document.createElement('div');
+	var keys1 = ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'];
+	var keys2 = ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'];
+	var keys3 = ['enter', 'z', 'x', 'c', 'v', 'b', 'n', 'm', '<'];
+	row1.id = "row1";
+	row2.id = 'row2';
+	row3.id = 'row3';
+	keyboardDiv.appendChild(row1);
+	keyboardDiv.appendChild(row2);
+	keyboardDiv.appendChild(row3);
+	var row1Div = document.getElementById("row1");
+	var row2Div = document.getElementById("row2");
+	var row3Div = document.getElementById("row3");
+
+	for (var i = 0; i < keys1.length; i++)
+	{
+		var newDiv = document.createElement('button');
+		newDiv.classList.add("key");
+		newDiv.innerHTML = keys1[i].toUpperCase();
+		row1Div.appendChild(newDiv);
+
+		(function(index) {
+			newDiv.addEventListener('click', function() { 
+				currentLine += 1;
+				writeCharacter(currentLine, keys1[index]);
+				playerGuess += keys1[index];
+			});
+		})(i);
+	}
+	for (var i = 0; i < keys2.length; i++)
+	{
+		var newDiv = document.createElement('button');
+		newDiv.classList.add("key");
+		newDiv.innerHTML = keys2[i].toUpperCase();
+		row2Div.appendChild(newDiv);
+
+		(function(index) {
+			newDiv.addEventListener('click', function() { 
+				currentLine += 1;
+				writeCharacter(currentLine, keys2[index]);
+				playerGuess += keys2[index];
+			});
+		})(i);
+	}
+
+	var enterKey = document.createElement('button');
+	enterKey.classList.add('sideKey');
+	enterKey.innerHTML = `ENTER`;
+	row3Div.appendChild(enterKey);
+	enterKey.addEventListener('click', function() { 
+		handleGuess();
+		checked += 1;
+		playerGuess = '';
+	});
+	for (var i = 1; i < keys3.length-1; i++)
+	{
+		var newDiv = document.createElement('button');
+		newDiv.classList.add("key");
+		newDiv.innerHTML = keys3[i].toUpperCase();
+		row3Div.appendChild(newDiv);
+
+		(function(index) {
+			newDiv.addEventListener('click', function() { 
+				currentLine += 1;
+				writeCharacter(currentLine, keys3[index]);
+				playerGuess += keys3[index];
+			});
+		})(i);
+	}
+	var backKey = document.createElement('button');
+	backKey.classList.add('sideKey');
+	backKey.innerHTML = `<<`;
+	row3Div.appendChild(backKey);
+	backKey.addEventListener('click', function() { 
+		if (currentLine > 0)
+		{
+			writeCharacter(currentLine, '');
+			currentLine -= 1;
+			if (playerGuess.length > 0)
+			{
+				playerGuess = playerGuess.slice(0, -1);
+			}
+		}
+	});
 }
 
 function addN(i)
@@ -94,16 +183,10 @@ function play()
 	console.log(word);
 }
 
-playerGuess.addEventListener('keydown', function(event) {
-	if (event.key === 'Enter') {
-		handleGuess();
-	}
-});
-
 function handleGuess()
 {
-	var playerInput = playerGuess.value;
-	// playerGuess.value = '';
+	console.log(playerGuess);
+	var playerInput = playerGuess;
 	if (!win)
 	{
 		checkGuess(playerInput.toLowerCase());
@@ -146,8 +229,7 @@ function checkGuess(playerInput)
 				guessCount += 1;
 				guessList.push(playerInput);
 				document.getElementById('popup').style.color = 'transparent';
-				playerGuess.value = '';
-				
+
 				if (guessCount == 7)
 				{
 					
@@ -196,11 +278,12 @@ function printPopup(string)
 function run()
 {
 	createDisplay();
-	// createKeyboard();
+	createKeyboard();
 	play();
 }
 
 run();
+
 
 
 // Working FLask Server, I just don't want to have to be hosting it so the wordList is saved above.
