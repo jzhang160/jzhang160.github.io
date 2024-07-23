@@ -86,6 +86,7 @@ function createKeyboard()
 		newDiv.id = keys1[i];
 		newDiv.innerHTML = keys1[i].toUpperCase();
 		row1Div.appendChild(newDiv);
+		newDiv.style.backgroundColor = 'lightgray';
 
 		(function(index) {
 			newDiv.addEventListener('click', function() { 
@@ -102,6 +103,7 @@ function createKeyboard()
 		newDiv.id = keys2[i];
 		newDiv.innerHTML = keys2[i].toUpperCase();
 		row2Div.appendChild(newDiv);
+		newDiv.style.backgroundColor = 'lightgray';
 
 		(function(index) {
 			newDiv.addEventListener('click', function() { 
@@ -115,6 +117,7 @@ function createKeyboard()
 	var enterKey = document.createElement('button');
 	enterKey.classList.add('sideKey');
 	enterKey.innerHTML = `ENTER`;
+	enterKey.style.backgroundColor = 'lightgray';
 	row3Div.appendChild(enterKey);
 	enterKey.addEventListener('click', function() { 
 		handleGuess();
@@ -128,6 +131,7 @@ function createKeyboard()
 		newDiv.id = keys3[i];
 		newDiv.innerHTML = keys3[i].toUpperCase();
 		row3Div.appendChild(newDiv);
+		newDiv.style.backgroundColor = 'lightgray';
 
 		(function(index) {
 			newDiv.addEventListener('click', function() { 
@@ -141,6 +145,7 @@ function createKeyboard()
 	backKey.classList.add('sideKey');
 	backKey.innerHTML = `<<`;
 	row3Div.appendChild(backKey);
+	backKey.style.backgroundColor = 'lightgray';
 	backKey.addEventListener('click', function() { 
 		if (currentLine > 0)
 		{
