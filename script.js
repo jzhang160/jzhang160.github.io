@@ -143,10 +143,6 @@ function createKeyboard()
 		if (currentLine > 0)
 		{
 			removeCharacter(currentLine);
-			if (playerGuess.length > 0)
-			{
-				playerGuess = playerGuess.slice(0, -1);
-			}
 		}
 	});
 }
@@ -188,20 +184,42 @@ function removeCharacter(line)
 {
 	if (!win)
 	{
-		if (Math.floor(line/5) == checked || line%5 == 0)
+		if (line % 5 == 1 && Math.trunc(line/5) == checked) // Deleting first box of the current guess (When the box is empty)
 		{
+			console.log("first");
+			console.log(line);
 			var box = document.getElementById("line" + line);
 			box.innerHTML = '';
-			if (currentLine%5 != 1)
+			if (playerGuess.length > 0)
 			{
-				currentLine -= 1;
+				playerGuess = playerGuess.slice(0, -1);
 			}
 		}
-		else if (Math.floor(line/5) == checked+1)
-		{	
-			var box = document.getElementById("line" + (line-1));
-			box.innerHTML = '';
-			currentLine -= 2;
+		else if (Math.floor(line/5) == checked) // Deleting second and third boxes of the current guess
+		{
+			console.log("second");
+			line -= 1;
+			console.log(line);
+			currentLine -= 1;
+			var box = document.getElementById("line" + line);
+			box.innerHTML = ``;
+			if (playerGuess.length > 0)
+			{
+				playerGuess = playerGuess.slice(0, -1);
+			}
+		}
+		else if (Math.floor(line/5) == checked+1 && line%5 < 3) // Deleting fourth and fifth boxes of the current guess
+		{
+			console.log("third");
+			line -= 1;
+			console.log(line);
+			currentLine -= 1;
+			var box = document.getElementById("line" + line);
+			box.innerHTML = ``;
+			if (playerGuess.length > 0)
+			{
+				playerGuess = playerGuess.slice(0, -1);
+			}
 		}
 	}
 }
