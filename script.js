@@ -142,15 +142,11 @@ function createKeyboard()
 	backKey.addEventListener('click', function() { 
 		if (currentLine > 0)
 		{
-			console.log(currentLine);
 			removeCharacter(currentLine);
 			if (playerGuess.length > 0)
 			{
 				playerGuess = playerGuess.slice(0, -1);
 			}
-		}
-		else{
-			console.log("NO MORE LINE");
 		}
 	});
 }
@@ -270,6 +266,7 @@ function checkGuess(playerInput)
 				{
 					printPopup(`YOU WIN!`);
 					win = true;
+					return;
 				}
 				
 				guessCount += 1;
