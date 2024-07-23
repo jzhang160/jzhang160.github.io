@@ -25,6 +25,12 @@ p {
     margin: 0px;
 }
 
+button {
+    background-color: lightgray;
+    border-radius: 2px;
+    border: 1px black solid;
+}
+
 #popup{
     font-size: 35px;
     position: sticky;
