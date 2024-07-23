@@ -11,7 +11,7 @@ var previousTries = [];
 var word = '';
 var win = false;
 var guessList = [];
-var currentLine = 0;
+var currentLine = 1;
 var playerGuess = '';
 var checked = 0;
 
@@ -90,9 +90,7 @@ function createKeyboard()
 
 		(function(index) {
 			newDiv.addEventListener('click', function() { 
-				currentLine += 1;
 				writeCharacter(currentLine, keys1[index]);
-				playerGuess += keys1[index];
 			});
 		})(i);
 	}
@@ -107,9 +105,7 @@ function createKeyboard()
 
 		(function(index) {
 			newDiv.addEventListener('click', function() { 
-				currentLine += 1;
 				writeCharacter(currentLine, keys2[index]);
-				playerGuess += keys2[index];
 			});
 		})(i);
 	}
@@ -121,7 +117,6 @@ function createKeyboard()
 	row3Div.appendChild(enterKey);
 	enterKey.addEventListener('click', function() { 
 		handleGuess();
-		checked += 1;
 		// playerGuess = '';
 	});
 	for (var i = 1; i < keys3.length-1; i++)
@@ -135,9 +130,7 @@ function createKeyboard()
 
 		(function(index) {
 			newDiv.addEventListener('click', function() { 
-				currentLine += 1;
 				writeCharacter(currentLine, keys3[index]);
-				playerGuess += keys3[index];
 			});
 		})(i);
 	}
@@ -149,12 +142,15 @@ function createKeyboard()
 	backKey.addEventListener('click', function() { 
 		if (currentLine > 0)
 		{
-			writeCharacter(currentLine, '');
-			currentLine -= 1;
+			console.log(currentLine);
+			removeCharacter(currentLine);
 			if (playerGuess.length > 0)
 			{
 				playerGuess = playerGuess.slice(0, -1);
 			}
+		}
+		else{
+			console.log("NO MORE LINE");
 		}
 	});
 }
@@ -180,8 +176,38 @@ function addN(i)
 
 function writeCharacter(line, char)
 {
-	var box = document.getElementById("line" + line);
-	box.innerHTML = char.toUpperCase();
+	if (!win)
+	{
+		if (Math.floor(line/5) == checked || line%5 == 0)
+		{
+			var box = document.getElementById("line" + line);
+			box.innerHTML = char.toUpperCase();
+			playerGuess += char;
+			currentLine += 1;
+		}
+	}
+}
+
+function removeCharacter(line)
+{
+	if (!win)
+	{
+		if (Math.floor(line/5) == checked || line%5 == 0)
+		{
+			var box = document.getElementById("line" + line);
+			box.innerHTML = '';
+			if (currentLine%5 != 1)
+			{
+				currentLine -= 1;
+			}
+		}
+		else if (Math.floor(line/5) == checked+1)
+		{	
+			var box = document.getElementById("line" + (line-1));
+			box.innerHTML = '';
+			currentLine -= 2;
+		}
+	}
 }
 
 function play()
@@ -210,6 +236,7 @@ function checkGuess(playerInput)
 			if (JSON.parse(wordList).includes(playerInput)) // Check valid word
 			{
 				// printGuess(playerInput); // Display word
+				checked += 1;
 				playerGuess = '';
 				for (var i = 0; i < 5; i++)
 				{
