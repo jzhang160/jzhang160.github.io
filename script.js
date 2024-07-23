@@ -14,6 +14,8 @@ var word = '';
 var win = false;
 var guessList = [];
 
+const keyboardDiv = document.getElementById("keyboard");
+
 function addN(i)
 {
 	switch (i)
@@ -48,6 +50,16 @@ function createDisplay()
 	}
 	resultDisplay.appendChild(answerRow);
     }
+}
+
+function createKeyboard()
+{
+	var rowOne = document.createElement('div');
+	keyboardDiv.appendChild(rowOne);
+	var rowTwo = document.createElement('div');
+	keyboardDiv.appendChild(rowTwo);
+	var rowThree = document.createElement('div');
+	keyboardDiv.appendChild(rowThree);
 }
 
 function addN(i)
@@ -130,17 +142,24 @@ function checkGuess(playerInput)
 					printPopup(`YOU WIN!`);
 					win = true;
 				}
-				if (guessCount == 6)
+				
+				guessCount += 1;
+				guessList.push(playerInput);
+				document.getElementById('popup').style.color = 'transparent';
+				playerGuess.value = '';
+				
+				if (guessCount == 7)
 				{
+					
 					if (correct != 5)
 					{
 						printPopup(`The word was ` + word);
 					}
 				}
-				guessCount += 1;
-				guessList.push(playerInput);
-				document.getElementById('popup').style.color = 'transparent';
-				playerGuess.value = '';
+				else
+				{
+					console.log(guessCount);
+				}
 			}
 			else
 			{
@@ -177,6 +196,7 @@ function printPopup(string)
 function run()
 {
 	createDisplay();
+	// createKeyboard();
 	play();
 }
 
