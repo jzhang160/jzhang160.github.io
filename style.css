@@ -34,7 +34,8 @@ p {
 }
 
 .line {
-    color: light #666;
+    color: black;
+    background-color: white;
     line-height: 1.6;
     display: flex;
     justify-content: center;

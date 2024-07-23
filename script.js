@@ -83,6 +83,7 @@ function createKeyboard()
 	{
 		var newDiv = document.createElement('button');
 		newDiv.classList.add("key");
+		newDiv.id = keys1[i];
 		newDiv.innerHTML = keys1[i].toUpperCase();
 		row1Div.appendChild(newDiv);
 
@@ -98,6 +99,7 @@ function createKeyboard()
 	{
 		var newDiv = document.createElement('button');
 		newDiv.classList.add("key");
+		newDiv.id = keys2[i];
 		newDiv.innerHTML = keys2[i].toUpperCase();
 		row2Div.appendChild(newDiv);
 
@@ -117,12 +119,13 @@ function createKeyboard()
 	enterKey.addEventListener('click', function() { 
 		handleGuess();
 		checked += 1;
-		playerGuess = '';
+		// playerGuess = '';
 	});
 	for (var i = 1; i < keys3.length-1; i++)
 	{
 		var newDiv = document.createElement('button');
 		newDiv.classList.add("key");
+		newDiv.id = keys3[i];
 		newDiv.innerHTML = keys3[i].toUpperCase();
 		row3Div.appendChild(newDiv);
 
@@ -185,7 +188,6 @@ function play()
 
 function handleGuess()
 {
-	console.log(playerGuess);
 	var playerInput = playerGuess;
 	if (!win)
 	{
@@ -202,7 +204,8 @@ function checkGuess(playerInput)
 		{
 			if (JSON.parse(wordList).includes(playerInput)) // Check valid word
 			{
-				printGuess(playerInput); // Display word
+				// printGuess(playerInput); // Display word
+				playerGuess = '';
 				for (var i = 0; i < 5; i++)
 				{
 					if (word.includes(playerInput[i])) // Check letter in word
@@ -211,13 +214,24 @@ function checkGuess(playerInput)
 						{
 							correct += 1;
 							var val = addN(guessCount) + i + 1;
-							document.getElementById("line" + val).style.color = "green";
+							document.getElementById("line" + val).style.backgroundColor = "green";
+							document.getElementById(playerInput[i]).style.backgroundColor = "green";
+							document.getElementById("line" + val).style.color = "white";
 						}
 						else
 						{
 							var val = addN(guessCount) + i + 1;
-							document.getElementById("line" + val).style.color = "yellow";
+							document.getElementById("line" + val).style.backgroundColor = "#af9502";
+							document.getElementById(playerInput[i]).style.backgroundColor = "#af9502";
+							document.getElementById("line" + val).style.color = "white";
 						}
+					}
+					else
+					{
+						var val = addN(guessCount) + i + 1;
+						document.getElementById("line" + val).style.backgroundColor = '#787C7E';
+						document.getElementById(playerInput[i]).style.backgroundColor = '#787C7E';
+						document.getElementById("line" + val).style.color = "white";
 					}
 				}
 				if (correct == 5)
@@ -237,10 +251,6 @@ function checkGuess(playerInput)
 					{
 						printPopup(`The word was ` + word);
 					}
-				}
-				else
-				{
-					console.log(guessCount);
 				}
 			}
 			else
